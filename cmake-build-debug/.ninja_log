@@ -1,0 +1,15 @@
+# ninja log v5
+0	14	1696051897745777801	CMakeFiles/advanced_programmings_at1.dir/src/node/NodeList.cpp.o	fa468871055bbcd5
+0	101	1696051897837779722	CMakeFiles/advanced_programmings_at1.dir/src/tree/TreeNode.cpp.o	67e5def0e090eae8
+1	117	1696051897853780057	CMakeFiles/advanced_programmings_at1.dir/src/tree/TreeQuestions.cpp.o	39152c2d705829fb
+0	151	1696051897885780726	CMakeFiles/advanced_programmings_at1.dir/src/node/Node.cpp.o	2fb69d6e558292d
+1	170	1696051897905781142	CMakeFiles/advanced_programmings_at1.dir/src/tree/TreeIterator.cpp.o	c4e43963a4867884
+0	180	1696051897913781309	CMakeFiles/advanced_programmings_at1.dir/src/Contact.cpp.o	38968dfb107247aa
+1	219	1696051897953782146	CMakeFiles/advanced_programmings_at1.dir/src/hash/HashQuestions.cpp.o	90a9e003a50ac26
+0	223	1696051897957782230	CMakeFiles/advanced_programmings_at1.dir/src/hash/Hasher.cpp.o	74a801ee21da2aad
+1	263	1696051897997783065	CMakeFiles/advanced_programmings_at1.dir/src/node/ContactList.cpp.o	9e1cd541378a40d0
+0	264	1696051897997783065	CMakeFiles/advanced_programmings_at1.dir/main.cpp.o	f62967e7fe5b0d17
+1	280	1696051898013783400	CMakeFiles/advanced_programmings_at1.dir/src/node/NodeQuestions.cpp.o	5966c88d9b15f629
+280	309	1696051898041783989	advanced_programmings_at1	8f725076a2869283
+0	183	1696051929210516437	CMakeFiles/advanced_programmings_at1.dir/main.cpp.o	f62967e7fe5b0d17
+183	213	1696051929242517265	advanced_programmings_at1	8f725076a2869283
