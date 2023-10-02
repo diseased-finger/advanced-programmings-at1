@@ -1,38 +1,37 @@
-//
-// Created by jedsaxon on 11/09/23.
-//
+// This C++ header file defines the 'TreeNode' class, which represents a node in a tree data structure.
+// It includes data, left, right, and parent pointers for tree navigation.
 
 #ifndef ADVANCED_PROGRAMMINGS_AT1_TREENODE_H
 #define ADVANCED_PROGRAMMINGS_AT1_TREENODE_H
 
+// Include the necessary headers for the TreeNode class.
+#include <utility>      // Utility header for std::move
+#include "../Contact.h" // Include the Contact class definition.
 
-#include <utility>
-
-#include "../Contact.h"
-
+// Declare the TreeNode class.
 class TreeNode {
 private:
-    Contact data;
+    Contact data;       // Data stored in the tree node.
+    TreeNode* left;     // Pointer to the left child node.
+    TreeNode* right;    // Pointer to the right child node.
+    TreeNode* parent;   // Pointer to the parent node.
 
-    // Underneath the tree node, there will be 2 more. This would be the left and right nodes
-    TreeNode* left;
-    TreeNode* right;
-
-    // The parent node is the one above this node
-    TreeNode* parent;
 public:
+    // Constructor that initializes the TreeNode with Contact data.
     TreeNode(Contact _data)
-        : data(std::move(_data)) { }
+            : data(std::move(_data)) { }
 
+    // Getter functions to access node attributes.
     Contact* GetData() { return &data; }
     TreeNode* GetLeftNode() { return left; }
     TreeNode* GetRightNode() { return right; }
     TreeNode* GetParentNode() { return parent; }
 
+    // Setter functions to update child and parent pointers.
     void SetLeftNode(TreeNode *node) { left = node; }
     void SetRightNode(TreeNode *node) { right = node; }
     void SetParentNode(TreeNode *node) { parent = node; }
 };
 
-
+// End of the preprocessor directives.
 #endif //ADVANCED_PROGRAMMINGS_AT1_TREENODE_H

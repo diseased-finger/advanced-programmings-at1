@@ -1,104 +1,85 @@
-//
-// Created by jedsaxon on 11/09/23.
-//
+// This C++ header file defines a generic 'NodeList' class, which is used to manage a list of nodes.
+// It includes functions for inserting nodes, accessing the first and last nodes, and getting the size of the list.
 
-#include <iostream>
-#include "NodeQuestions.h"
-#include "ContactList.h"
+#ifndef ADVANCED_PROGRAMMINGS_AT1_NODELIST_H
+#define ADVANCED_PROGRAMMINGS_AT1_NODELIST_H
 
-int NodeQuestions::Start() {
-    Node<Contact>* node4 = new Node<Contact>(Contact("Foo4", "Bar4", 60));
-    Node<Contact>* node2 = new Node<Contact>(Contact("Foo2", "Bar2", 40));
-    Node<Contact>* node5 = new Node<Contact>(Contact("Foo5", "Bar5", 70));
-    Node<Contact>* node1 = new Node<Contact>(Contact("Foo1", "Bar1", 30));
-    Node<Contact>* node3 = new Node<Contact>(Contact("Foo3", "Bar3", 50));
-    Node<Contact>* node6 = new Node<Contact>(Contact("Foo6", "Bar6", 80));
+// Include necessary headers.
+#include <iostream>     // Include the input/output stream for debugging.
+#include <memory>       // Include the memory header for smart pointers.
+#include "Node.h"       // Include the Node class definition.
 
-    ContactList* list = new ContactList();
+// Define a generic NodeList class using a template.
+template <typename T>
+class NodeList {
+private:
+    Node<T>* first;     // Pointer to the first node in the list.
+    Node<T>* last;      // Pointer to the last node in the list.
+    int size;           // The size of the list (number of nodes).
 
-    list->Insert(node4);
-    list->Insert(node2);
-    list->Insert(node5);
-    list->Insert(node1);
-    list->Insert(node3);
-    list->Insert(node6);
+    // Private member function to recursively destroy nodes starting from the given node.
+    void DestroyNodeRecursive(Node<T> *firstNode) {
+        /* If there is a previous node, it will call this same function to delete it. If that node also has a previous
+         * one, it will be deleted too. This means that this function will end up being called for each node in the
+         * list. Once it reaches the end of the list, it will delete the node and then get out of the function, meaning
+         * the node in front of it will be deleted, and it goes on until all nodes have been deleted
+         */
 
-    std::cout << "Select Option" << std::endl
-              << "1: Insert Element" << std::endl
-              << "2: Loop Through Elements" << std::endl
-              << "3: Loop Through Elements in Reverse" << std::endl
-              << "4: Search" << std::endl
-              << "5: [Deprecated] Min Age" << std::endl
-              << "6: [Deprecated] Max Age" << std::endl
-              << "7: Sort By Age" << std::endl
-              << "8: Exit" << std::endl;
-
-    while (true) {
-        std::cout << "\n";
-        int option = GetNumberFromUser("Enter Option: ", "Please select a value between 1 and 8", 1, 8);
-        std::cout << "\n";
-
-        switch (option) {
-            case 1: {
-                Node<Contact>* newNode = CreateNode();
-                list->Insert(newNode);
-                continue;
-            }
-            case 2: {
-                list->LoopThroughNodes();
-                continue;
-            }
-            case 3: {
-                list->LoopThroughNodesReverse();
-                continue;
-            }
-            case 4: {
-                list->Search();
-                continue;
-            }
-            case 7: {
-                std::cout << "Sorting...\n";
-                list->Sort();
-                continue;
-            }
-            case 8: {
-                std::cout << "Exiting" << std::endl;
-                list->~ContactList();
-                return 0;
-            }
-            default: {
-                std::cout << "That is an invalid option" << std::endl;
-            }
-        }
-    }
-}
-
-int NodeQuestions::GetNumberFromUser(const std::string &message, const std::string &errorMessage, int min, int max) {
-    while (true) {
-        int option = 0;
-        std::cout << message;
-        std::cin >> option;
-
-        if (option < min || option > max) {
-            std::cout << errorMessage << std::endl;
-            continue;
+        if (firstNode->GetPreviousNode()) {
+            DestroyNodeRecursive(firstNode->GetPreviousNode());
         }
 
-        return option;
+        // Delete the firstNode after deleting the previous one.
+        std::cout << "Deleting Node";
+        delete firstNode;
     }
-}
 
-Node<Contact>* NodeQuestions::CreateNode() {
-    std::string firstName;
-    std::string lastName;
-    int age;
+    // Private member function to destroy all nodes in the list.
+    void Destroy() {
+        Node<T> *lastNode = GetLast();
+        DestroyNodeRecursive(lastNode);
+    }
 
-    std::cout << "Inserting New Element1\n" << "Enter First Name: ";
-    std::cin >> firstName;
-    std::cout << "Enter Last Name: ";
-    std::cin >> lastName;
+public:
+    // Destructor that destroys all nodes in the list when the NodeList object is destroyed.
+    ~NodeList() {
+        Destroy();
+    }
 
-    age = GetNumberFromUser("Enter Age: ", "Please select a valid age between 0 - 100", 0, 100);
+    // Function to get a pointer to the first node in the list.
+    Node<T>* GetFirst() { return first; }
 
-    return new Node<Contact>(Contact(firstName, lastName, age));
-}
+    // Function to get a pointer to the last node in the list.
+    Node<T>* GetLast() { return last; }
+
+    // Function to get the size (number of nodes) in the list.
+    int GetSize() { return size; }
+
+    // Function to insert a new node into the list.
+    void Insert(Node<T>* newNode) {
+        // If nothing is in the list, set the first node (not the last).
+        if (first == nullptr) {
+            first = std::move(newNode);
+            size++;
+            return;
+        }
+
+        // If there's only one element in the list (the first node), set the first node's next node to the new one,
+        // and also set the new one as the last node.
+        if (last == nullptr) {
+            first->SetNextNode(newNode);
+            newNode->SetPreviousNode(first);
+            last = std::move(newNode);
+            size++;
+            return;
+        }
+
+        newNode->SetPreviousNode(last); // Current Last now has one in front of it!
+        last->SetNextNode(newNode);     // Current Last points to the new node.
+        last = newNode;                 // Update the new last node.
+        size++;
+    }
+};
+
+// End of the preprocessor directives.
+#endif //ADVANCED_PROGRAMMINGS_AT1_NODELIST_H
