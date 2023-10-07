@@ -4,8 +4,8 @@
 #include "src/tree/TreeQuestions.h"
 
 int main() {
-//    HashQuestions* questions = new HashQuestions();
+    HashQuestions* questions = new HashQuestions();
 //    TreeQuestions* questions = new TreeQuestions();
-    NodeQuestions* questions = new NodeQuestions();
+//    NodeQuestions* questions = new NodeQuestions();
     return questions->Start();
 }

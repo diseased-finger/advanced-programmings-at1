@@ -18,10 +18,10 @@ add_executable(advanced_programmings_at1 main.cpp
         src/node/NodeQuestions.h
         src/tree/TreeQuestions.cpp
         src/tree/TreeQuestions.h
-        src/hash/Hasher.cpp
-        src/hash/Hasher.h
-        src/hash/HashQuestions.cpp
-        src/hash/HashQuestions.h
         src/node/ContactList.h
         src/node/ContactList.cpp
+        src/hash/HashQuestions.cpp
+        src/hash/HashQuestions.h
+        src/hash/Hasher.cpp
+        src/hash/Hasher.h
 )
