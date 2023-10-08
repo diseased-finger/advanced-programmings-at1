@@ -7,7 +7,10 @@
 
 
 class Hasher {
-    unsigned long Hash(void *key, int length);
+public:
+    unsigned int Hash(void *key, int length);
+
+    unsigned int StringToHash(const std::string &key, unsigned int maxKeys);
 };
 
 
